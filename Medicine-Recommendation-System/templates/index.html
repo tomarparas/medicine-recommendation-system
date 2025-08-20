@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HealthDominus - AI Symptom Checker</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-weight: 700;
+        }
+
+        .checker-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+            padding: 40px;
+            margin-top: -50px; /* Pulls the card up over the hero section */
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .btn-predict {
+            background-color: #5E7A8F; /* A strong red */
+            border: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .btn-predict:hover {
+            background-color: #5E7A8F;
+        }
+
+        .btn-speech {
+            border: 1px solid #0d6efd;
+            color: #0d6efd;
+        }
+
+        .btn-speech:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+        
+        .results-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+        }
+
+        .results-section h2 {
+            font-weight: 700;
+            color: #2193b0;
+        }
+
+        /* Styles for the results tabs */
+        .nav-tabs .nav-link {
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .nav-tabs .nav-link.active {
+            border-color: #2193b0;
+            color: #2193b0;
+            background-color: transparent;
+        }
+        
+        .tab-content {
+            padding-top: 20px;
+            color: #333;
+        }
+        
+        .tab-content li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">🩺 HealthDominus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1>AI-Powered Symptom Checker</h1>
+            <p class="lead">Enter your symptoms below to get instant insights about potential conditions.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="checker-card">
+            <form action="/predict" method="post">
+                <div class="mb-3">
+                    <label for="symptoms" class="form-label fs-5">Enter Your Symptoms</label>
+                    <input type="text" class="form-control form-control-lg" id="symptoms" name="symptoms"
+                        placeholder="e.g., itching, sneezing, headache">
+                </div>
+                
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" id="startSpeechRecognition" class="btn btn-speech me-3">
+                        🎤 Use Voice
+                    </button>
+                    <small id="speech-status" class="text-muted">Click the button to start speaking</small>
+                </div>
+
+                {% if message %}
+                <div class="alert alert-warning mt-3">{{ message }}</div>
+                {% endif %}
+
+                <button type="submit" class="btn btn-predict btn-lg w-100">Predict Disease</button>
+            </form>
+        </div>
+
+        {% if predicted_disease %}
+        <div class="results-section">
+            <h2 class="text-center mb-4">Analysis Result</h2>
+            
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="disease-tab" data-bs-toggle="tab" data-bs-target="#disease"
+                        type="button" role="tab" aria-controls="disease" aria-selected="true">Disease</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description"
+                        type="button" role="tab" aria-controls="description" aria-selected="false">Description</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="precautions-tab" data-bs-toggle="tab" data-bs-target="#precautions"
+                        type="button" role="tab" aria-controls="precautions" aria-selected="false">Precautions</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="medications-tab" data-bs-toggle="tab" data-bs-target="#medications"
+                        type="button" role="tab" aria-controls="medications" aria-selected="false">Medications</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="workouts-tab" data-bs-toggle="tab" data-bs-target="#workouts"
+                        type="button" role="tab" aria-controls="workouts" aria-selected="false">Workouts</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="diets-tab" data-bs-toggle="tab" data-bs-target="#diets"
+                        type="button" role="tab" aria-controls="diets" aria-selected="false">Diets</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="disease" role="tabpanel" aria-labelledby="disease-tab">
+                    <h4 class="fw-bold">{{ predicted_disease }}</h4>
+                </div>
+                <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    <p>{{ dis_des }}</p>
+                </div>
+                <div class="tab-pane fade" id="precautions" role="tabpanel" aria-labelledby="precautions-tab">
+                    <ul>
+                        {% for item in my_precautions %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="medications" role="tabpanel" aria-labelledby="medications-tab">
+                     <ul>
+                        {% for item in medications %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="workouts" role="tabpanel" aria-labelledby="workouts-tab">
+                     <ul>
+                        {% for item in workout %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="diets" role="tabpanel" aria-labelledby="diets-tab">
+                    <ul>
+                        {% for item in my_diet %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HealthDominus. All Rights Reserved. Not a substitute for professional medical advice.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        const startSpeechRecognitionButton = document.getElementById('startSpeechRecognition');
+        const symptomsInput = document.getElementById('symptoms');
+        const speechStatus = document.getElementById('speech-status');
+
+        startSpeechRecognitionButton.addEventListener('click', () => {
+            // Check for browser support
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                speechStatus.textContent = "Sorry, your browser doesn't support Speech Recognition.";
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US'; // Set the language
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                speechStatus.textContent = "Listening...";
+                startSpeechRecognitionButton.disabled = true;
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                // Capitalize first letter and add period if not present.
+                let formattedTranscript = transcript.charAt(0).toUpperCase() + transcript.slice(1);
+                symptomsInput.value = formattedTranscript;
+            };
+
+            recognition.onerror = (event) => {
+                speechStatus.textContent = `Error occurred in recognition: ${event.error}`;
+                startSpeechRecognitionButton.disabled = false;
+            };
+
+            recognition.onend = () => {
+                speechStatus.textContent = "Click the button to start speaking";
+                startSpeechRecognitionButton.disabled = false;
+            };
+
+            recognition.start();
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Developers - HealthDominus</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            color: #495057;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        }
+
+        .page-header {
+            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-weight: 700;
+            font-size: 3.5rem;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #2193b0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .team-section {
+            padding-bottom: 50px;
+        }
+
+        .developer-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .developer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+        }
+
+        .developer-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #e0f7fa;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .developer-card h4 {
+            font-weight: 700;
+            color: #343a40;
+        }
+
+        .developer-card .role {
+            color: #2193b0;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            color: #6c757d;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #2193b0;
+        }
+
+        .mission-statement {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+        }
+
+        .footer {
+            background-color: #212529;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">🩺 HealthDominus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/developer">Developer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Meet the Team</h1>
+        <p class="lead">The minds behind HealthDominus.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container team-section">
+        <div class="text-center col-lg-8 mx-auto mb-5">
+             <p class="lead">We are final-year B.Tech students from Engineering College Bikaner, passionate about using technology to solve real-world healthcare problems. This project is a reflection of our shared vision to make healthcare smarter and more accessible.</p>
+        </div>
+
+        <!-- Team Members -->
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="developer-card">
+                    <img src="https://placehold.co/150x150/E0F7FA/333?text=PT" alt="Paras Tomar">
+                    <h4>Paras Tomar</h4>
+                    <p class="role">AI/ML Specialist</p>
+                    <p>Focused on the core machine learning model, ensuring accurate symptom analysis and predictions.</p>
+                    <div class="social-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="developer-card">
+                    <img src="https://placehold.co/150x150/B2EBF2/333?text=S" alt="Shivam Shekhawat">
+                    <h4>Shivam Shekhawat</h4>
+                    <p class="role">Full-Stack Developer</p>
+                    <p>Developed the backend infrastructure and connected the front-end to the AI model via Flask.</p>
+                     <div class="social-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="developer-card">
+                    <img src="https://placehold.co/150x150/80DEEA/333?text=R" alt="Ravindra Regar">
+                    <h4>Ravindra Regar</h4>
+                    <p class="role">UI/UX & Frontend</p>
+                    <p>Designed and built the user interface, focusing on a clean, intuitive, and responsive experience.</p>
+                     <div class="social-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- Project Mission -->
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="mission-statement text-center">
+                    <h2 class="section-title">Our Project Philosophy</h2>
+                    <p class="lead">The development of HealthDominus represents a convergence of our passion for AI and our dedication to improving healthcare accessibility. We believe that technology can transform the way we approach personal health, making it more personalized and informative. This platform is a testament to that vision, and we invite you to experience firsthand the fusion of AI and healthcare.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HealthDominus. All Rights Reserved. Not a substitute for professional medical advice.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
